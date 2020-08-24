@@ -18,6 +18,11 @@ allprojects {
     repositories {
         google()
         jcenter()
+
+        flatDir {
+            dirs 'libs'
+            dirs project(':mylibrary').file('libs')
+        }
     }
 }
 

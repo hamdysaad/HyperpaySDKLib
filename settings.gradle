@@ -1,4 +1,4 @@
-include ':oppwa.mobile-2.49.0'
+//include ':oppwa.mobile-2.49.0'
 include ':mylibrary'
 include ':app'
 rootProject.name = "HyperpaySDKLib"
