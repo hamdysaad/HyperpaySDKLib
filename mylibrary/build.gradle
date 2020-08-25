@@ -2,7 +2,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
-apply plugin: "maven-publish"
+/*apply plugin: "maven-publish"
 
 configurations.maybeCreate("default")
 def publishArtifact = artifacts.add("default", file('oppwa.mobile-2.49.0.aar'))
@@ -16,7 +16,7 @@ publishing {
             artifact publishArtifact
         }
     }
-}
+}*/
 
 android {
     compileSdkVersion 30
@@ -56,7 +56,8 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.2.0'
 //    implementation project(path: ':oppwa.mobile-2.49.0')
 
-    implementation(name:'oppwa.mobile-2.49.0', ext:'aar')
+//    implementation(name:'oppwa.mobile-2.49.0', ext:'aar')
+    implementation project(path: ':oppwa.mobile-2.49.0')
 
 
     testImplementation 'junit:junit:4.12'
