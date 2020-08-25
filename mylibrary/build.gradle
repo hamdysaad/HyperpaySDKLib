@@ -2,6 +2,23 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
+
+apply plugin: "maven-publish"
+
+configurations.maybeCreate("default")
+def publishArtifact = artifacts.add("default", file('libs/oppwa.mobile-2.49.0.aar'))
+
+publishing {
+    publications {
+        aar(MavenPublication) {
+            groupId = 'com.shgardi.base'
+            artifactId = 'shgardiSDK'
+            version = '1.0.0'
+            artifact publishArtifact
+        }
+    }
+}
+
 android {
     compileSdkVersion 30
     buildToolsVersion "29.0.3"
@@ -24,14 +41,14 @@ android {
     }
 }
 
-//repositories {
-//    google()
-//    jcenter()
-//
-//    flatDir {
-//        dirs '../libs'
-//    }
-//}
+repositories {
+    google()
+    jcenter()
+
+    flatDir {
+        dirs 'libs'
+    }
+}
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
