@@ -24,14 +24,14 @@ android {
     }
 }
 
-repositories {
-    google()
-    jcenter()
-
-    flatDir {
-        dirs 'libs'
-    }
-}
+//repositories {
+//    google()
+//    jcenter()
+//
+//    flatDir {
+//        dirs '../libs'
+//    }
+//}
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
