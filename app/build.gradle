@@ -22,6 +22,32 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    def QA = 1
+
+    flavorDimensions "developer"
+
+    productFlavors.all {
+        QA = 0
+        buildConfigField "int", "QA", "" + QA
+    }
+    productFlavors {
+        dev {
+            dimension "developer"
+            QA = 0
+            buildConfigField "int", "QA", "" + QA
+        }
+        staging {
+            dimension "developer"
+            QA = 1
+            buildConfigField "int", "QA", "" + QA
+        }
+        prod {
+            dimension "developer"
+            QA = 2
+            buildConfigField "int", 'QA', "" + QA
+        }
+    }
 }
 
 dependencies {

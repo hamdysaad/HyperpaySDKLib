@@ -39,6 +39,33 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    def QA = 1
+
+    flavorDimensions "developer"
+
+    productFlavors.all {
+        QA = 0
+        buildConfigField "int", "QA", "" + QA
+    }
+    productFlavors {
+        dev {
+            dimension "developer"
+            QA = 0
+            buildConfigField "int", "QA", "" + QA
+        }
+        staging {
+            dimension "developer"
+            QA = 1
+            buildConfigField "int", "QA", "" + QA
+        }
+        prod {
+            dimension "developer"
+            QA = 2
+            buildConfigField "int", 'QA', "" + QA
+        }
+
+    }
 }
 
 repositories {
@@ -70,4 +97,43 @@ dependencies {
     implementation 'com.android.support:customtabs:28.0.0'
     implementation 'com.google.android.gms:play-services-wallet:16.0.1'
 
+}
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from android.sourceSets.main.javaDirectories
+}
+
+artifacts {
+    archives sourcesJar
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+}
+
+group='com.shgardi.base'
+version = '1.0.0'
+
+if (android.productFlavors.size() > 0) {
+    android.libraryVariants.all { variant ->
+
+        if (variant.name.toLowerCase().contains("debug")) {
+            return
+        }
+
+        def bundleTask = tasks["bundle${variant.name.capitalize()}Aar"]
+
+        artifacts {
+            archives(bundleTask.archivePath) {
+                classifier variant.flavorName
+                builtBy bundleTask
+                name = project.name
+            }
+        }
+
+    }
 }
