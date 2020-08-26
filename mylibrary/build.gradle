@@ -110,12 +110,8 @@ artifacts {
     archives sourcesJar
 }
 
-dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-}
+group='com.shgardi.base'
+version = '1.2.0'
 
 if (android.productFlavors.size() > 0) {
     android.libraryVariants.all { variant ->
